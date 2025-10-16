@@ -1,9 +1,8 @@
-// src/App.js (Versión Final y Completa)
+// src/App.js
 
 import { useState } from 'react';
-import './style.css'; // Importa tus estilos
+import './style.css';
 
-// Importa todos los componentes que creaste
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Plans from './components/Plans';
@@ -15,7 +14,6 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 import LoginModal from './components/LoginModal';
 
-// Datos de los productos de la tienda (definidos aquí para fácil acceso)
 const storeProducts = [
   { sku: 'AC-001', name: 'Guantes Coleman', price: 10000, image: 'https://images.unsplash.com/photo-1579722820308-4e071fcbff81?q=80&w=1200&auto=format&fit=crop' },
   { sku: 'AC-002', name: 'Botella Deportiva', price: 8000, image: 'https://images.unsplash.com/photo-1543832923-4664b0972e29?q=80&w=1200&auto=format&fit=crop' },
@@ -24,51 +22,64 @@ const storeProducts = [
 ];
 
 function App() {
-  // --- ESTADO DE LA APLICACIÓN ---
-  // Controla la visibilidad del carrito
   const [isCartVisible, setCartVisible] = useState(false);
-  // Controla la visibilidad del modal de login
   const [isLoginVisible, setLoginVisible] = useState(false);
-  // Almacena los productos que se agregan al carrito
   const [cartItems, setCartItems] = useState([]);
 
-  // --- FUNCIONES QUE MANEJAN LA LÓGICA ---
   const handleAddToCart = (productToAdd) => {
-    setCartItems(prevItems => [...prevItems, productToAdd]); // Agrega el nuevo producto a la lista
-    setCartVisible(true); // Abre el carrito al agregar algo
+    const existingItem = cartItems.find(item => item.sku === productToAdd.sku);
+    if (existingItem) {
+      setCartItems(cartItems.map(item =>
+        item.sku === productToAdd.sku ? { ...item, quantity: item.quantity + 1 } : item
+      ));
+    } else {
+      setCartItems([...cartItems, { ...productToAdd, quantity: 1 }]);
+    }
+    setCartVisible(true);
+  };
+
+  const handleRemoveFromCart = (skuToRemove) => {
+    setCartItems(cartItems.filter(item => item.sku !== skuToRemove));
+  };
+
+  const handleDecreaseQuantity = (skuToDecrease) => {
+    const existingItem = cartItems.find(item => item.sku === skuToDecrease);
+    if (existingItem.quantity === 1) {
+      handleRemoveFromCart(skuToDecrease);
+    } else {
+      setCartItems(cartItems.map(item =>
+        item.sku === skuToDecrease ? { ...item, quantity: item.quantity - 1 } : item
+      ));
+    }
   };
 
   return (
     <>
-      {/* Pasamos funciones a los componentes hijos como "props" para que puedan comunicarse con App.js */}
-      <Header 
+      <Header
         onCartClick={() => setCartVisible(true)}
         onLoginClick={() => setLoginVisible(true)}
+        cartItemCount={cartItems.reduce((total, item) => total + item.quantity, 0)}
       />
-
       <main>
         <Hero />
         <Plans />
         <Classes />
-        <Store 
-          products={storeProducts} 
-          onAddToCart={handleAddToCart} 
-        />
+        <Store products={storeProducts} onAddToCart={handleAddToCart} />
         <Sedes />
         <Blog />
       </main>
-
       <Footer />
-
-      {/* Componentes condicionales que dependen del estado para mostrarse */}
-      <Cart 
+      <Cart
         isVisible={isCartVisible}
         onClose={() => setCartVisible(false)}
         items={cartItems}
+        onRemoveItem={handleRemoveFromCart}
+        onDecreaseItem={handleDecreaseQuantity}
+        onIncreaseItem={handleAddToCart} // <-- Aquí se pasa la función
       />
-      <LoginModal 
+      <LoginModal
         isVisible={isLoginVisible}
-        onClose={() => setLoginVisible(false)} 
+        onClose={() => setLoginVisible(false)}
       />
     </>
   );
