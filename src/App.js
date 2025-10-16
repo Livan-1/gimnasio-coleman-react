@@ -15,7 +15,7 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 import LoginModal from './components/LoginModal';
 
-// Datos de los productos de la tienda
+// Datos de los productos de la tienda (definidos aquí para fácil acceso)
 const storeProducts = [
   { sku: 'AC-001', name: 'Guantes Coleman', price: 10000, image: 'https://images.unsplash.com/photo-1579722820308-4e071fcbff81?q=80&w=1200&auto=format&fit=crop' },
   { sku: 'AC-002', name: 'Botella Deportiva', price: 8000, image: 'https://images.unsplash.com/photo-1543832923-4664b0972e29?q=80&w=1200&auto=format&fit=crop' },
@@ -25,22 +25,27 @@ const storeProducts = [
 
 function App() {
   // --- ESTADO DE LA APLICACIÓN ---
+  // Controla la visibilidad del carrito
   const [isCartVisible, setCartVisible] = useState(false);
+  // Controla la visibilidad del modal de login
   const [isLoginVisible, setLoginVisible] = useState(false);
+  // Almacena los productos que se agregan al carrito
   const [cartItems, setCartItems] = useState([]);
 
-  // --- FUNCIONES (Lógica) ---
+  // --- FUNCIONES QUE MANEJAN LA LÓGICA ---
   const handleAddToCart = (productToAdd) => {
-    setCartItems([...cartItems, productToAdd]);
-    setCartVisible(true);
+    setCartItems(prevItems => [...prevItems, productToAdd]); // Agrega el nuevo producto a la lista
+    setCartVisible(true); // Abre el carrito al agregar algo
   };
 
   return (
     <>
+      {/* Pasamos funciones a los componentes hijos como "props" para que puedan comunicarse con App.js */}
       <Header 
         onCartClick={() => setCartVisible(true)}
         onLoginClick={() => setLoginVisible(true)}
       />
+
       <main>
         <Hero />
         <Plans />
@@ -52,8 +57,10 @@ function App() {
         <Sedes />
         <Blog />
       </main>
+
       <Footer />
 
+      {/* Componentes condicionales que dependen del estado para mostrarse */}
       <Cart 
         isVisible={isCartVisible}
         onClose={() => setCartVisible(false)}
@@ -66,4 +73,5 @@ function App() {
     </>
   );
 }
+
 export default App;
