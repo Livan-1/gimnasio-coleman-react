@@ -15,10 +15,11 @@ import Cart from './components/Cart';
 import LoginModal from './components/LoginModal';
 
 const storeProducts = [
-  { sku: 'AC-001', name: 'Guantes Coleman', price: 10000, image: 'https://images.unsplash.com/photo-1579722820308-4e071fcbff81?q=80&w=1200&auto=format&fit=crop' },
-  { sku: 'AC-002', name: 'Botella Deportiva', price: 8000, image: 'https://images.unsplash.com/photo-1543832923-4664b0972e29?q=80&w=1200&auto=format&fit=crop' },
-  { sku: 'AC-003', name: 'Bandas Elásticas', price: 12000, image: 'https://plus.unsplash.com/premium_photo-1679923834240-3a56233d45f3?q=80&w=1200&auto=format&fit=crop' },
-  { sku: 'AC-004', name: 'Polera Oficial', price: 15000, image: 'https://images.unsplash.com/photo-1582874134106-03e1c667a7a3?q=80&w=1200&auto=format&fit=crop' },
+  { sku: 'AC-001', name: 'Guantes Coleman', price: 10000, image: '/guantes_fake_coleman.jpg' },
+  { sku: 'AC-002', name: 'Botella Deportiva', price: 8000, image: '/botella_fake_coleman.jpg' },
+  { sku: 'AC-003', name: 'Bandas Elásticas', price: 12000, image: '/bandas_fake_coleman.jpg' },
+  { sku: 'AC-004', name: 'Polera Oficial', price: 15000, image: '/poleron_fake_coleman.jpg' },
+  { sku: 'JPE-001', name: 'PAL JORGE POTITO EDIONDO', price: 2000, image: '/JABON_FAKE_COLEMAN.jpg' }
 ];
 
 function App() {

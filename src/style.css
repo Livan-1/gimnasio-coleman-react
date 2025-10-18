@@ -129,3 +129,240 @@ footer a{color:#c7d2fe; text-decoration:none}
 @media (max-width:640px){
   .plans, .classes, .store, .sedes-grid, .blog-grid{grid-template-columns:1fr}
 }
+
+
+/* Classes Section Styles */
+.classes-section {
+  padding: 4rem 0;
+  background: var(--background-alt);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+/* Filtros */
+.filters {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.filter-select {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+  min-width: 200px;
+}
+
+/* Grid de Clases */
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.class-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.class-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.class-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.class-id {
+  background: var(--primary);
+  color: white;
+}
+
+.difficulty-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.difficulty-badge.todos { background: #e3f2fd; color: #1976d2; }
+.difficulty-badge.intermedio { background: #fff3e0; color: #f57c00; }
+.difficulty-badge.avanzado { background: #ffebee; color: #d32f2f; }
+
+.class-description {
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+
+.class-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.detail-item .icon {
+  font-size: 1rem;
+}
+
+/* Capacidad */
+.capacity-section {
+  margin: 1rem 0;
+}
+
+.capacity-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.capacity-percentage {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.capacity-bar {
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.capacity-fill {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+/* Acciones */
+.class-actions {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.btn-disabled {
+  background: var(--muted) !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+/* Mensajes */
+.reservation-message {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.reservation-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.reservation-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .filter-select {
+    min-width: 250px;
+  }
+  
+  .classes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Contenedor de imagen - ESTILOS ESENCIALES */
+.class-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+}
+
+.class-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ← ESTO ES IMPORTANTE */
+  transition: transform 0.3s ease;
+  display: block; /* ← Asegura que se muestre como bloque */
+}
+
+.class-card:hover .class-image {
+  transform: scale(1.05);
+}
+
+.class-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%);
+}
+
+.class-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
