@@ -19,7 +19,7 @@ const storeProducts = [
   { sku: 'AC-002', name: 'Botella Deportiva', price: 8000, image: '/botella_fake_coleman.jpg' },
   { sku: 'AC-003', name: 'Bandas Elásticas', price: 12000, image: '/bandas_fake_coleman.jpg' },
   { sku: 'AC-004', name: 'Polera Oficial', price: 15000, image: '/poleron_fake_coleman.jpg' },
-  { sku: 'JPE-001', name: 'PAL JORGE POTITO EDIONDO', price: 2000, image: '/JABON_FAKE_COLEMAN.jpg' }
+  { sku: 'JPE-001', name: 'jabon antibacterial', price: 2000, image: '/JABON_FAKE_COLEMAN.jpg' }
 ];
 
 function App() {
