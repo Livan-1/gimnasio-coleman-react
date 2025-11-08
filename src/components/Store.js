@@ -17,7 +17,7 @@ function Store({ products, onAddToCart }) {
                 <div className="col" style={{ textAlign: 'right' }}>
                   <button
                     className="btn secondary add-cart"
-                    onClick={() => onAddToCart(product)}
+                    onClick={() => onAddToCart(product.sku)}
 
                   >
                     Agregar
