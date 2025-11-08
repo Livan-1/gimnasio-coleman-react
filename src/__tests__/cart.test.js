@@ -1,17 +1,17 @@
 // src/__tests__/cart.test.js
 import React from "react";
-import { render, screen, within, waitFor } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Cart from "../components/Cart";
 
-// OJO: Tus items reales usan sku (no id). Mantengo 'sku' aquí para coincidir con tu Cart.js
+// Coincide con tu implementación: usa sku, y muestra “El carrito está vacío.” cuando no hay productos
 const items = [
   { sku: "AC-001", name: "Guantes Coleman", price: 10000, quantity: 2 },
   { sku: "AC-002", name: "Botella Deportiva", price: 8000, quantity: 1 },
 ];
 
 describe("Cart", () => {
-  test("cuando isVisible=false, el aside no tiene clase 'show' y no hay 'Total'", () => {
+  test("cuando isVisible=false, el aside no tiene clase 'show'", () => {
     render(
       <Cart
         isVisible={false}
@@ -22,13 +22,15 @@ describe("Cart", () => {
         onIncreaseItem={() => {}}
       />
     );
+
     const aside = screen.getByRole("complementary", { name: /carrito de compras/i });
     expect(aside.className).not.toMatch(/show/);
-    // Con items vacíos, no aparece 'Total'
-    expect(screen.queryByText(/total/i)).toBeNull();
+
+    // ✅ Ya no verificamos que 'Total' esté ausente porque tu Cart lo muestra igual ($0)
+    expect(screen.getByText(/total/i)).toBeInTheDocument();
   });
 
-  test("cuando isVisible=true con items, aparece Total y botones accesibles", () => {
+  test("cuando isVisible=true con items, muestra total y botones accesibles", () => {
     render(
       <Cart
         isVisible={true}
@@ -39,13 +41,14 @@ describe("Cart", () => {
         onIncreaseItem={() => {}}
       />
     );
+
     const aside = screen.getByRole("complementary", { name: /carrito de compras/i });
     expect(aside.className).toMatch(/show/);
 
-    // Total visible
+    // ✅ 'Total' siempre visible en tu versión
     expect(screen.getByText(/total/i)).toBeInTheDocument();
 
-    // Botones por aria-label (coinciden con tu Cart.js publicado)
+    // Botones con aria-label definidos en tu Cart.js
     expect(screen.getAllByRole("button", { name: /aumentar cantidad/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("button", { name: /disminuir cantidad/i }).length).toBeGreaterThan(0);
     expect(screen.getAllByRole("button", { name: /eliminar producto/i }).length).toBeGreaterThan(0);
@@ -69,8 +72,7 @@ describe("Cart", () => {
     );
 
     const fila = screen.getByText(/guantes coleman/i).closest("article");
-    expect(fila).not.toBeNull();
-    const withinRow = within(fila!);
+    const withinRow = within(fila);
 
     await user.click(withinRow.getByRole("button", { name: /disminuir cantidad/i }));
     await user.click(withinRow.getByRole("button", { name: /aumentar cantidad/i }));
@@ -84,6 +86,7 @@ describe("Cart", () => {
   test("el botón 'Cerrar carrito' dispara onClose", async () => {
     const user = userEvent.setup();
     const onClose = jest.fn();
+
     render(
       <Cart
         isVisible={true}
@@ -94,6 +97,7 @@ describe("Cart", () => {
         onIncreaseItem={() => {}}
       />
     );
+
     await user.click(screen.getByRole("button", { name: /cerrar carrito/i }));
     expect(onClose).toHaveBeenCalledTimes(1);
   });
@@ -109,7 +113,11 @@ describe("Cart", () => {
         onIncreaseItem={() => {}}
       />
     );
-    expect(screen.getByText(/no hay productos en el carrito/i)).toBeInTheDocument();
-    expect(screen.queryByText(/total/i)).toBeNull();
+
+    // ✅ Coincide con tu texto real
+    expect(screen.getByText(/el carrito está vacío/i)).toBeInTheDocument();
+
+    // ✅ 'Total' sí existe (muestra $0)
+    expect(screen.getByText(/total/i)).toBeInTheDocument();
   });
 });
